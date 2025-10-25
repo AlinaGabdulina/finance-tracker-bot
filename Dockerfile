@@ -1,31 +1,23 @@
-# Используем базовый образ OpenJDK
-FROM openjdk:17-jdk-slim
+FROM gradle:jdk17-alpine AS build
 
-# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем Gradle Wrapper и связанные файлы
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
+COPY --chown=gradle:gradle gradlew .
+COPY --chown=gradle:gradle gradle gradle
+COPY --chown=gradle:gradle build.gradle settings.gradle .
 
-# Копируем исходный код
-COPY src src
+RUN gradle dependencies
 
-# Предоставляем права на выполнение Gradle Wrapper
-RUN chmod +x gradlew
+COPY --chown=gradle:gradle src src
 
-# Собираем проект. 'bootJar' - это задача Spring Boot, которая создает исполняемый JAR.
-# --no-daemon предотвращает запуск Gradle Daemon, что хорошо для контейнеров.
-RUN ./gradlew bootJar --no-daemon
+RUN gradle clean build -x test
 
-# Указываем, какой JAR файл запустить
-ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} app.jar
+FROM openjdk:17-jdk-slim-buster
 
-# Expose the port your application listens on (e.g., 8080 for Spring Boot)
+WORKDIR /app
+
+COPY --from=build /app/build/libs/*.jar app.jar
+
 EXPOSE 8080
 
-# Команда для запуска приложения
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
