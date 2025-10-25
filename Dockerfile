@@ -5,7 +5,7 @@ WORKDIR /app
 COPY --chown=gradle:gradle gradlew .
 COPY --chown=gradle:gradle gradle gradle
 COPY --chown=gradle:gradle build.gradle settings.gradle .
-
+ 
 RUN gradle dependencies
 
 COPY --chown=gradle:gradle src src
