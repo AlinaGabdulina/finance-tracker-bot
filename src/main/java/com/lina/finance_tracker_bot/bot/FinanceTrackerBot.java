@@ -4,9 +4,12 @@ import com.lina.finance_tracker_bot.services.NotificationService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
+import java.time.LocalDateTime;
 
 /**
  * Основной класс Telegram бота для отслеживания финансов
@@ -78,6 +81,15 @@ public class FinanceTrackerBot extends TelegramLongPollingBot {
         } catch (Exception e) {
             System.err.println("Ошибка в onUpdateReceived: " + e.getMessage());
         }
+    }
+
+    /**
+     * Пингует каждые 5 минут чтобы сервер на Render.com не засыпал
+     * Сообщения идут ТОЛЬКО в логи сервера, пользователи их не видят
+     */
+    @Scheduled(fixedRate = 300000) // 5 минут = 300000 мс
+    public void keepAlive() {
+        System.out.println("🔄 Keep-alive ping: " + LocalDateTime.now());
     }
 
     /**
