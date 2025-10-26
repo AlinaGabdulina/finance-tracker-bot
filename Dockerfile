@@ -9,7 +9,6 @@ COPY --chown=gradle:gradle build.gradle settings.gradle .
 RUN gradle dependencies
 
 COPY --chown=gradle:gradle src src
-
 RUN gradle clean build -x test
 
 FROM openjdk:17-jdk-slim-buster
