@@ -1,12 +1,8 @@
 # finance-tracker-bot
 Telegram бот для управления личными финансами.  Учет доходов/расходов, аналитика, уведомления, курсы валют.
-# finance-tracker-bot
-Telegram бот для управления личными финансами.  Учет доходов/расходов, аналитика, уведомления, курсы валют.
 Telegram bot for personal finance management. 
 Track income/expenses, get analytics, set reminders, currency rates.
 # 💰 Finance Tracker Bot
-
-Telegram бот для управления личными финансами с удобным интерфейсом и мощными возможностями анализа.
 
 ## 🚀 Функционал
 
