@@ -1,7 +1,7 @@
 # --- ЭТАП 1: Сборка (Builder) ---
 FROM eclipse-temurin:17-jdk-jammy AS builder
 WORKDIR /app
-
+ 
 # Копируем файлы Gradle для кэширования зависимостей
 COPY gradlew .
 COPY gradle gradle
