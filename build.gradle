@@ -25,24 +25,32 @@ repositories {
 }
 
 dependencies {
-//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-    // SQLite
-    implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
-    implementation 'org.hibernate.orm:hibernate-community-dialects:6.6.3.Final'
-
+    // Основные зависимости
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.postgresql:postgresql'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    implementation group: 'org.telegram', name: 'telegrambots', version: '6.5.0'
-    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.11.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+    // База данных
+    // Вариант 1: PostgreSQL
+//    implementation 'org.postgresql:postgresql'
 
+    // Вариант 2: SQLite
+     implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
+     implementation 'org.hibernate.orm:hibernate-community-dialects:6.6.3.Final'
+
+    // Telegram
+    implementation 'org.telegram:telegrambots:6.5.0'
+
+    // HTTP клиент
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Тесты
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {

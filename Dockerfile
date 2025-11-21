@@ -18,7 +18,7 @@ RUN chmod +x gradlew
 
 # Собираем проект. 'bootJar' - это задача Spring Boot, которая создает исполняемый JAR.
 # --no-daemon предотвращает запуск Gradle Daemon, что хорошо для контейнеров.
-RUN ./gradlew bootJar --no-daemon
+RUN ./gradlew bootJar --no-daemon -x test
 
 # Указываем, какой JAR файл запустить
 ARG JAR_FILE=build/libs/*.jar
